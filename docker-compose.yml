@@ -4,18 +4,19 @@ services:
   nginx:
     image: nginx:1.13.6
     ports:
-      - 8080:80
       - 3000:3000
+      - 8080:80
     volumes:
       - $PWD/learning_app:/opt/app:ro
       - $PWD/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - $PWD/theia:/opt/theia
     depends_on:
       - app
-      - cloudnine
-  cloudnine:
-    build: cloud9
+      - theia
+  theia:
+    build: theia
     volumes:
-      - $PWD/learning_app/:/workspace/
+      - $PWD/learning_app:/home/project
   app:
     build: learning_app
     expose:
